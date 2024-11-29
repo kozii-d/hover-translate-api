@@ -1,12 +1,21 @@
 services:
-  app:
+  server:
     build:
       context: .
       target: production # Stage "production"
-    ports:
-      - "${APPLICATION_PORT}:${APPLICATION_PORT}"
     environment:
       - NODE_ENV=production
     env_file:
       - .env
     restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ht-api.entrypoints=websecure-external"
+      - "traefik.http.routers.ht-api.rule=Host(`ht.${DOMAIN}`)"
+      - "traefik.http.services.server.loadbalancer.server.port=${APPLICATION_PORT}"
+    networks:
+      - proxy_net
+
+networks:
+  proxy_net:
+    external: true

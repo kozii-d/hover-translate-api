@@ -1,5 +1,5 @@
 services:
-  app:
+  server:
     build:
       context: .
       target: development # Stage "development"
