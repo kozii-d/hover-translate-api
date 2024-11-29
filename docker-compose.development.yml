@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      target: development # Stage "development"
+    ports:
+      - "${APPLICATION_PORT}:${APPLICATION_PORT}"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development

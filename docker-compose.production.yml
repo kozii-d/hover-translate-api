@@ -1,0 +1,12 @@
+services:
+  app:
+    build:
+      context: .
+      target: production # Stage "production"
+    ports:
+      - "${APPLICATION_PORT}:${APPLICATION_PORT}"
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    restart: always
