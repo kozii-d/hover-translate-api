@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Inject, Post } from "@nestjs/common";
+
 import { TranslateRequestDto } from "./dto/translate-request.dto";
 import { TranslationServiceInterface } from "./translation-service.interface";
 

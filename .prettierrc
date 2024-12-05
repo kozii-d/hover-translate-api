@@ -1,4 +1,21 @@
 {
   "singleQuote": false,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+  "importOrderParserPlugins": ["typescript", "decorators-legacy"],
+
+  "importOrder": [
+    "^(path|fs|util|os|http|https|net|events|child_process|crypto)$",
+    "^ws",
+    "",
+    "^@nestjs/*",
+    "",
+    "^dotenv",
+    "",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^[../]",
+    "^./",
+    "^\\./index$"
+  ]
 }

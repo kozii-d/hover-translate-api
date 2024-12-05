@@ -1,7 +1,9 @@
 import { Injectable } from "@nestjs/common";
+
 import { SourceLanguageCode, TargetLanguageCode, Translator } from "deepl-node";
-import { TranslationServiceInterface } from "./translation-service.interface";
+
 import { Language } from "./language.enity";
+import { TranslationServiceInterface } from "./translation-service.interface";
 
 @Injectable()
 export class DeeplTranslationService implements TranslationServiceInterface {

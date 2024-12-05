@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
-import { TranslationController } from "./translation.controller";
+
 import { GoogleTranslationService } from "./google-translation.service";
+import { TranslationController } from "./translation.controller";
 
 @Module({
   imports: [],

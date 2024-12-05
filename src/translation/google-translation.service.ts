@@ -1,7 +1,10 @@
-import { TranslationServiceInterface } from "./translation-service.interface";
-import { Injectable } from "@nestjs/common";
-import { TranslationServiceClient } from "@google-cloud/translate";
 import fs from "fs";
+
+import { Injectable } from "@nestjs/common";
+
+import { TranslationServiceClient } from "@google-cloud/translate";
+
+import { TranslationServiceInterface } from "./translation-service.interface";
 
 @Injectable()
 export class GoogleTranslationService implements TranslationServiceInterface {
