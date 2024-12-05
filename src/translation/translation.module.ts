@@ -1,10 +1,15 @@
 import { Module } from "@nestjs/common";
 import { TranslationController } from "./translation.controller";
-import { TranslationService } from "./translation.service";
+import { GoogleTranslationService } from "./google-translation.service";
 
 @Module({
   imports: [],
   controllers: [TranslationController],
-  providers: [TranslationService],
+  providers: [
+    {
+      provide: "TranslationServiceInterface",
+      useClass: GoogleTranslationService,
+    },
+  ],
 })
 export class TranslationModule {}

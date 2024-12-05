@@ -11,18 +11,24 @@ COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-# Stage 3: Final image for production
-FROM node:20 AS production
+# Stage 3: Base image for production and development
+FROM node:20 AS base
 WORKDIR /app
-COPY --from=builder /app/dist ./dist
 COPY --from=dependencies /app/node_modules ./node_modules
+COPY generateGoogleCredentials.sh ./
+RUN chmod +x generateGoogleCredentials.sh
+ENV GOOGLE_APPLICATION_CREDENTIALS=/app/google-credentials.json
+
+# Stage 4: Final image for production
+FROM base AS production
+COPY --from=builder /app/dist ./dist
 EXPOSE 3000
+ENTRYPOINT ["sh", "generateGoogleCredentials.sh"]
 CMD ["node", "dist/main"]
 
-# Stage 4: Final image for development
-FROM node:20 AS development
-WORKDIR /app
-COPY --from=dependencies /app/node_modules ./node_modules
+# Stage 5: Final image for development
+FROM base AS development
 COPY . .
 EXPOSE 3000
+ENTRYPOINT ["sh", "generateGoogleCredentials.sh"]
 CMD ["npm", "run", "start:dev"]
