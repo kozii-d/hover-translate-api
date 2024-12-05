@@ -34,6 +34,7 @@ export class GoogleTranslationService implements TranslationServiceInterface {
   async getSupportedLanguages() {
     const request = {
       parent: `projects/${this.projectId}/locations/global`,
+      displayLanguageCode: "en",
     };
 
     const [response] = await this.translator.getSupportedLanguages(request);
