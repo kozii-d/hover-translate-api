@@ -1,7 +1,6 @@
 import { TranslationServiceInterface } from "./translation-service.interface";
 import { Injectable } from "@nestjs/common";
 import { TranslationServiceClient } from "@google-cloud/translate";
-import { Language } from "./language.enity";
 import fs from "fs";
 
 @Injectable()
@@ -35,33 +34,27 @@ export class GoogleTranslationService implements TranslationServiceInterface {
     };
 
     const [response] = await this.translator.getSupportedLanguages(request);
-    const targetLanguages: Language[] = response.languages.reduce(
+
+    return response.languages.reduce(
       (acc, language) => {
         if (language.supportTarget) {
-          acc.push({
+          acc.targetLanguages.push({
             code: language.languageCode,
             name: language.displayName,
           });
         }
-        return acc;
-      },
-      [],
-    );
 
-    const sourceLanguages: Language[] = response.languages.reduce(
-      (acc, language) => {
         if (language.supportSource) {
-          acc.push({
+          acc.sourceLanguages.push({
             code: language.languageCode,
             name: language.displayName,
           });
         }
+
         return acc;
       },
-      [],
+      { targetLanguages: [], sourceLanguages: [] },
     );
-
-    return { targetLanguages, sourceLanguages };
   }
 
   async translateText(
