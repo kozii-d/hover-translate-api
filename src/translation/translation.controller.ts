@@ -29,10 +29,6 @@ export class TranslationController {
         targetLocale,
       );
 
-      if (!result) {
-        throw new Error("No translations found");
-      }
-
       return { text: result };
     } catch (error) {
       throw new Error(`Translation failed: ${error.message}`);
