@@ -1,8 +1,10 @@
-import { Body, Controller, Get, Inject, Post } from "@nestjs/common";
+import { Body, Controller, Get, Inject, Post, UseGuards } from "@nestjs/common";
 
+import { AuthGuard } from "../auth/auth.guard";
 import { TranslateRequestDto } from "./dto/translate-request.dto";
 import { TranslationServiceInterface } from "./translation-service.interface";
 
+@UseGuards(AuthGuard)
 @Controller("translation")
 export class TranslationController {
   constructor(

@@ -13,7 +13,7 @@ async function bootstrap() {
       "https://www.youtube.com",
     ],
     methods: ["POST", "GET"],
-    allowedHeaders: ["Content-Type", "Origin", "Accept"],
+    allowedHeaders: ["Content-Type", "Origin", "Accept", "Authorization"],
     optionsSuccessStatus: 200,
   });
 
