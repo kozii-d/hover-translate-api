@@ -24,7 +24,7 @@ FROM base AS production
 COPY --from=builder /app/dist ./dist
 EXPOSE 3000
 ENTRYPOINT ["sh", "generateGoogleCredentials.sh"]
-CMD ["node", "dist/main"]
+CMD ["node", "dist/src/main"]
 
 # Stage 5: Final image for development
 FROM base AS development
