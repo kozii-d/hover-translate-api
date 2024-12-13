@@ -1,13 +1,17 @@
+volumes:
+  db-data:
+
 services:
   server:
     build:
       context: .
       target: production # Stage "production"
-    environment:
-      - NODE_ENV=production
     env_file:
       - .env
     restart: always
+    depends_on:
+      db:
+        condition: service_healthy
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.ht-api.entrypoints=websecure-external"
@@ -15,7 +19,29 @@ services:
       - "traefik.http.services.server.loadbalancer.server.port=${APPLICATION_PORT}"
     networks:
       - proxy_net
+      - internal
+  db:
+    image: postgres:17.2
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    ports:
+      - 5432:${DB_PORT}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - internal
 
 networks:
+  internal:
   proxy_net:
     external: true
