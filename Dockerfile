@@ -22,9 +22,12 @@ ENV GOOGLE_APPLICATION_CREDENTIALS=/app/google-credentials.json
 # Stage 4: Final image for production
 FROM base AS production
 COPY --from=builder /app/dist ./dist
+COPY package*.json ./
+COPY tsconfig*.json ./
+COPY database ./database
 EXPOSE 3000
 ENTRYPOINT ["sh", "generateGoogleCredentials.sh"]
-CMD ["node", "dist/src/main"]
+CMD ["node", "dist/main"]
 
 # Stage 5: Final image for development
 FROM base AS development
