@@ -12,7 +12,6 @@ import { AuthGuard } from "../auth/auth.guard";
 import { TranslateRequestDto } from "./dto/translate-request.dto";
 import { TranslationServiceInterface } from "./translation-service.interface";
 
-@UseGuards(AuthGuard)
 @UseInterceptors(CacheInterceptor)
 @Controller("translation")
 export class TranslationController {
@@ -30,6 +29,7 @@ export class TranslationController {
     }
   }
 
+  @UseGuards(AuthGuard)
   @Get("translate")
   async translate(@Query() query: TranslateRequestDto) {
     try {
