@@ -1,10 +1,19 @@
-import { Body, Controller, Get, Inject, Post, UseGuards } from "@nestjs/common";
+import { CacheInterceptor } from "@nestjs/cache-manager";
+import {
+  Controller,
+  Get,
+  Inject,
+  Query,
+  UseGuards,
+  UseInterceptors,
+} from "@nestjs/common";
 
 import { AuthGuard } from "../auth/auth.guard";
 import { TranslateRequestDto } from "./dto/translate-request.dto";
 import { TranslationServiceInterface } from "./translation-service.interface";
 
 @UseGuards(AuthGuard)
+@UseInterceptors(CacheInterceptor)
 @Controller("translation")
 export class TranslationController {
   constructor(
@@ -21,10 +30,10 @@ export class TranslationController {
     }
   }
 
-  @Post("translate")
-  async translate(@Body() body: TranslateRequestDto) {
+  @Get("translate")
+  async translate(@Query() query: TranslateRequestDto) {
     try {
-      const { input, sourceLocale, targetLocale } = body;
+      const { input, sourceLocale, targetLocale } = query;
       const result = await this.translationService.translateText(
         input,
         sourceLocale,
