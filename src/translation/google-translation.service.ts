@@ -63,23 +63,23 @@ export class GoogleTranslationService implements TranslationServiceInterface {
 
   async translateText(
     input: string,
-    sourceLocale: string,
-    targetLocale: string,
+    sourceLanguageCode: string,
+    targetLanguageCode: string,
   ) {
     const request = {
       parent: `projects/${this.projectId}/locations/global`,
       contents: [input],
       mimeType: "text/plain",
-      sourceLanguageCode: sourceLocale === "auto" ? null : sourceLocale,
-      targetLanguageCode: targetLocale,
+      sourceLanguageCode:
+        sourceLanguageCode === "auto" ? null : sourceLanguageCode,
+      targetLanguageCode,
     };
     const [response] = await this.translator.translateText(request);
 
-    console.log("response", response);
     const detectedLanguageCode =
-      sourceLocale === "auto"
+      sourceLanguageCode === "auto"
         ? response.translations[0].detectedLanguageCode
-        : sourceLocale;
+        : sourceLanguageCode;
 
     return {
       translatedText: response.translations[0].translatedText,

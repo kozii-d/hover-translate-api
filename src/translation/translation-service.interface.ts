@@ -3,8 +3,8 @@ import { Language } from "./language.enity";
 export interface TranslationServiceInterface {
   translateText(
     input: string,
-    sourceLocale: string,
-    targetLocale: string,
+    sourceLanguageCode: string,
+    targetLanguageCode: string,
   ): Promise<{ translatedText: string; detectedLanguageCode: string }>;
 
   getSupportedLanguages(): Promise<{

@@ -7,9 +7,9 @@ export class TranslateRequestDto {
 
   @IsString()
   @IsNotEmpty()
-  sourceLocale: string;
+  sourceLanguageCode: string;
 
   @IsString()
   @IsNotEmpty()
-  targetLocale: string;
+  targetLanguageCode: string;
 }

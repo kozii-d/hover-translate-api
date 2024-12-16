@@ -31,16 +31,16 @@ export class DeeplTranslationService implements TranslationServiceInterface {
 
   async translateText(
     input: string,
-    sourceLocale: string,
-    targetLocale: string,
+    sourceLanguageCode: string,
+    targetLanguageCode: string,
   ) {
     const response = await this.translator.translateText(
       input,
-      sourceLocale === "auto" ? null : (sourceLocale as SourceLanguageCode),
-      targetLocale as TargetLanguageCode,
+      sourceLanguageCode === "auto"
+        ? null
+        : (sourceLanguageCode as SourceLanguageCode),
+      targetLanguageCode as TargetLanguageCode,
     );
-
-    console.log("response", response);
 
     return {
       translatedText: response.text,

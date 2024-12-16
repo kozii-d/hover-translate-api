@@ -33,11 +33,11 @@ export class TranslationController {
   @Get("translate")
   async translate(@Query() query: TranslateRequestDto) {
     try {
-      const { input, sourceLocale, targetLocale } = query;
+      const { input, sourceLanguageCode, targetLanguageCode } = query;
       return this.translationService.translateText(
         input,
-        sourceLocale,
-        targetLocale,
+        sourceLanguageCode,
+        targetLanguageCode,
       );
     } catch (error) {
       throw new Error(`Translation failed: ${error.message}`);
