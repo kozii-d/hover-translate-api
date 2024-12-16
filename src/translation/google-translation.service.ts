@@ -73,8 +73,17 @@ export class GoogleTranslationService implements TranslationServiceInterface {
       sourceLanguageCode: sourceLocale === "auto" ? null : sourceLocale,
       targetLanguageCode: targetLocale,
     };
-
     const [response] = await this.translator.translateText(request);
-    return response.translations[0].translatedText;
+
+    console.log("response", response);
+    const detectedLanguageCode =
+      sourceLocale === "auto"
+        ? response.translations[0].detectedLanguageCode
+        : sourceLocale;
+
+    return {
+      translatedText: response.translations[0].translatedText,
+      detectedLanguageCode,
+    };
   }
 }

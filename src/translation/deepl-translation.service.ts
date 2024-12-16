@@ -40,6 +40,11 @@ export class DeeplTranslationService implements TranslationServiceInterface {
       targetLocale as TargetLanguageCode,
     );
 
-    return response.text;
+    console.log("response", response);
+
+    return {
+      translatedText: response.text,
+      detectedLanguageCode: response.detectedSourceLang,
+    };
   }
 }

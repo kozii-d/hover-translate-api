@@ -5,7 +5,7 @@ export interface TranslationServiceInterface {
     input: string,
     sourceLocale: string,
     targetLocale: string,
-  ): Promise<string>;
+  ): Promise<{ translatedText: string; detectedLanguageCode: string }>;
 
   getSupportedLanguages(): Promise<{
     targetLanguages: Language[];
