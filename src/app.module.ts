@@ -7,6 +7,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { redisStore } from "cache-manager-redis-yet";
 
 import { AuthModule } from "./auth/auth.module";
+import { HealthCheckModule } from "./health-check/health-check.module";
 import { TranslationModule } from "./translation/translation.module";
 import { UserModule } from "./user/user.module";
 
@@ -15,7 +16,7 @@ import { UserModule } from "./user/user.module";
     TypeOrmModule.forRoot({
       type: "postgres",
       host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT || "5432", 10),
+      port: 5432,
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
@@ -41,6 +42,7 @@ import { UserModule } from "./user/user.module";
     TranslationModule,
     AuthModule,
     UserModule,
+    HealthCheckModule,
   ],
   controllers: [],
   providers: [],
