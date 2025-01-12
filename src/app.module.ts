@@ -29,10 +29,10 @@ import { UserModule } from "./user/user.module";
         const store = await redisStore({
           socket: {
             host: process.env.REDIS_HOST,
-            port: parseInt(process.env.REDIS_PORT || "6379", 10),
+            port: 6379,
           },
           password: process.env.REDIS_PASSWORD,
-          ttl: 1000 * 60 * 60 * 24 * 7, // 1000 ms * 60 seconds * 60 minutes * 24 hours * 7 days = 1 week
+          ttl: 1000 * 60 * 60 * 24 * 31, // 1000 ms * 60 seconds * 60 minutes * 24 hours * 31 days = 1 month
         });
 
         return { store };
